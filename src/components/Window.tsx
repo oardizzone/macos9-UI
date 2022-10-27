@@ -25,6 +25,7 @@ export const Window = (props: WindowProps) => {
     x: 10,
     y: 10,
   });
+  const [isActive, setIsActive] = useState(true);
   const mouseRef = useRef({ down: false, x: 0, y: 0, dragX: 0, dragY: 0 });
   const windowRef = useRef<HTMLElement>(null);
 
@@ -79,29 +80,44 @@ export const Window = (props: WindowProps) => {
     };
   };
 
-  const handleWindowClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleWindowClick = () => {
+    setIsActive(true);
     pushWindowHistory(props.name);
+  };
+
+  const handleClickOutside = (e: MouseEvent) => {
+    e.preventDefault();
+    if (
+      !(e.target instanceof Element) ||
+      !desktopRef.current?.contains(e.target)
+    )
+      return;
+
+    if (!windowRef.current?.contains(e.target)) setIsActive(false);
   };
 
   const handleWindowClose = () => {
     props.onClose();
+    if (windowHistory.length === 1) setIsActive(true);
   };
 
   useEffect(() => {
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mousemove", handleMouseMove);
+    if (desktopRef.current == null) return;
+    desktopRef.current.addEventListener("click", handleClickOutside);
 
     return () => {
       document.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mousemove", handleMouseMove);
+      if (desktopRef.current == null) return;
+      desktopRef.current.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
   return (
     <section
-      className="window"
+      className={isActive ? "window" : "window--inactive"}
       ref={windowRef}
       style={{
         top: `${position.y}px`,
