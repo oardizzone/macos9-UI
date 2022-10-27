@@ -1,9 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { capitalizeFirstChar } from "../utils";
 import { CloseButton } from "./buttons";
 
 interface WindowProps {
   name: string;
   parentRef: React.RefObject<HTMLElement>;
+  children: ReactNode;
+  onClose: () => void;
 }
 
 export const Window = (props: WindowProps) => {
@@ -34,7 +43,6 @@ export const Window = (props: WindowProps) => {
     const diffX = distX - mouseRef.current.dragX;
     const diffY = distY - mouseRef.current.dragY;
     mouseRef.current = { ...mouseRef.current, dragX: distX, dragY: distY };
-    console.log(windowRect, parentRect);
 
     setPosition((prev) => {
       if (
@@ -60,6 +68,10 @@ export const Window = (props: WindowProps) => {
     };
   };
 
+  const handleWindowClose = () => {
+    props.onClose();
+  };
+
   useEffect(() => {
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mousemove", handleMouseMove);
@@ -81,7 +93,7 @@ export const Window = (props: WindowProps) => {
     >
       <section className="window__container">
         <section className="window__title-bar" onMouseDown={handleMouseDown}>
-          <CloseButton />
+          <CloseButton onClick={handleWindowClose} />
           <div className="window__title-bar__picker">
             <div className="window__title-bar__picker__line"></div>
             <div className="window__title-bar__picker__line"></div>
@@ -90,7 +102,9 @@ export const Window = (props: WindowProps) => {
             <div className="window__title-bar__picker__line"></div>
             <div className="window__title-bar__picker__line"></div>
           </div>
-          <span className="window__title-bar__name">Window</span>
+          <span className="window__title-bar__name">
+            {capitalizeFirstChar(props.name)}
+          </span>
           <div className="window__title-bar__picker">
             <div className="window__title-bar__picker__line"></div>
             <div className="window__title-bar__picker__line"></div>
@@ -100,10 +114,7 @@ export const Window = (props: WindowProps) => {
             <div className="window__title-bar__picker__line"></div>
           </div>
         </section>
-        <section className="window__content">
-          <p>skdjfhksjdf</p>
-          <p>sdkjfhksdf</p>
-        </section>
+        <section className="window__content">{props.children}</section>
       </section>
     </section>
   );

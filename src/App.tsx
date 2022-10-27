@@ -6,15 +6,34 @@ function App() {
   const desktopRef = useRef<HTMLElement>(null);
   const [openWindows, setOpenWindows] = useState<string[]>([]);
 
-  const openWindow = (windowHref: string) => {
-    if (openWindows.includes(windowHref)) return;
-    setOpenWindows((prev) => [...prev, windowHref]);
+  const openWindow = (windowName: string) => {
+    if (openWindows.includes(windowName)) return;
+    setOpenWindows((prev) => [...prev, windowName]);
   };
+
+  const closeWindow = (windowName: string) => {
+    setOpenWindows((prev) => prev.filter((name) => name !== windowName));
+  };
+
   return (
     <>
       <MenuBar onSelect={openWindow} />
       <section className="desktop" ref={desktopRef}>
-        <Window parentRef={desktopRef} />
+        {openWindows.map((name) => (
+          <Window
+            key={name}
+            parentRef={desktopRef}
+            name={name}
+            onClose={() => {
+              closeWindow(name);
+            }}
+          >
+            <p>fjshdgfshdgjf</p>
+            <p>fjshdgfshdgjf</p>
+            <p>fjshdgfshdgjf</p>
+            <p>fjshdgfshdgjf</p>
+          </Window>
+        ))}
       </section>
     </>
   );
