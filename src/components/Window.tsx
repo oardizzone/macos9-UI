@@ -14,28 +14,28 @@ interface WindowProps {
   children: ReactNode;
   onClose: () => void;
   onMove: () => void;
-  positionOffsetScale: number;
 }
 
 export const Window = (props: WindowProps) => {
   const [position, setPosition] = useState({
-    x: props.positionOffsetScale * 25 + 25,
-    y: props.positionOffsetScale * 25 + 25,
+    x: 10,
+    y: 10,
   });
   const mouseRef = useRef({ down: false, x: 0, y: 0, dragX: 0, dragY: 0 });
   const windowRef = useRef<HTMLElement>(null);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     mouseRef.current = {
       ...mouseRef.current,
       down: true,
       x: e.screenX,
       y: e.screenY,
     };
-    e.stopPropagation();
   };
 
   const handleMouseMove = (e: MouseEvent) => {
+    e.stopPropagation();
     const windowRect = windowRef.current?.getBoundingClientRect();
     const parentRect = props.parentRef.current?.getBoundingClientRect();
 
@@ -65,6 +65,8 @@ export const Window = (props: WindowProps) => {
   };
 
   const handleMouseUp = (e: MouseEvent) => {
+    e.stopPropagation();
+
     mouseRef.current = {
       ...mouseRef.current,
       down: false,

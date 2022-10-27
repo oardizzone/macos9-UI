@@ -3,10 +3,6 @@ import { MenuBar, Window } from "./components";
 import "./styles/main.scss";
 
 export type WindowName = "about" | "game" | "works" | "contact";
-interface WindowData {
-  isOpen: boolean;
-  wasMoved: boolean;
-}
 
 function App() {
   const desktopRef = useRef<HTMLElement>(null);
@@ -14,6 +10,18 @@ function App() {
   const [gameWindowOpen, setGameWindowOpen] = useState(false);
   const [worksWindowOpen, setWorksWindowOpen] = useState(false);
   const [contactWindowOpen, setContactWindowOpen] = useState(false);
+
+  const [activeWindowHistory, setActiveWindowHistory] = useState<string[]>([]);
+
+  const pushToWindowHistory = (name: WindowName) => {
+    const history = new Set([...activeWindowHistory, name]);
+    setActiveWindowHistory(Array.from(history));
+  };
+
+  const popFromWindowHistory = (name: WindowName) => {
+    if (!activeWindowHistory.includes(name)) return;
+    setActiveWindowHistory((prev) => prev.filter((win) => win !== name));
+  };
 
   const handleWindowOpen = (name: WindowName) => {
     switch (name) {
@@ -30,7 +38,28 @@ function App() {
         setContactWindowOpen(true);
         break;
       default:
+        break;
     }
+    pushToWindowHistory(name);
+  };
+
+  const handleWindowClose = (name: WindowName) => {
+    switch (name) {
+      case "about":
+        setAboutWindowOpen(false);
+        break;
+      case "game":
+        setGameWindowOpen(false);
+        break;
+      case "works":
+        setWorksWindowOpen(false);
+        break;
+      case "contact":
+        setContactWindowOpen(false);
+        break;
+      default:
+    }
+    popFromWindowHistory(name);
   };
 
   return (
@@ -43,7 +72,7 @@ function App() {
             parentRef={desktopRef}
             name={"about"}
             onClose={() => {
-              setAboutWindowOpen(false);
+              handleWindowClose("about");
             }}
             onMove={() => {
               //   handleWindowMove("about");
@@ -78,7 +107,7 @@ function App() {
             parentRef={desktopRef}
             name={"game"}
             onClose={() => {
-              setGameWindowOpen(false);
+              handleWindowClose("game");
             }}
             onMove={() => {}}
           >
@@ -100,7 +129,7 @@ function App() {
             parentRef={desktopRef}
             name={"works"}
             onClose={() => {
-              setWorksWindowOpen(false);
+              handleWindowClose("works");
             }}
             onMove={() => {}}
           >
@@ -121,7 +150,7 @@ function App() {
             parentRef={desktopRef}
             name={"contact"}
             onClose={() => {
-              setContactWindowOpen(false);
+              handleWindowClose("contact");
             }}
             onMove={() => {}}
           >
