@@ -1,22 +1,26 @@
 import React, {
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
+import { DesktopContext, DesktopContextValue, WindowName } from "../App";
 import { capitalizeFirstChar } from "../utils";
 import { CloseButton } from "./buttons";
 
 interface WindowProps {
-  name: string;
-  parentRef: React.RefObject<HTMLElement>;
+  name: WindowName;
   children: ReactNode;
   onClose: () => void;
   onMove: () => void;
 }
 
 export const Window = (props: WindowProps) => {
+  const { desktopRef, windowHistory, pushWindowHistory } =
+    useContext<DesktopContextValue>(DesktopContext);
+
   const [position, setPosition] = useState({
     x: 10,
     y: 10,
@@ -37,7 +41,7 @@ export const Window = (props: WindowProps) => {
   const handleMouseMove = (e: MouseEvent) => {
     e.stopPropagation();
     const windowRect = windowRef.current?.getBoundingClientRect();
-    const parentRect = props.parentRef.current?.getBoundingClientRect();
+    const parentRect = desktopRef.current?.getBoundingClientRect();
 
     if (!mouseRef.current.down || !windowRect || !parentRect) return;
     props.onMove();
@@ -75,6 +79,12 @@ export const Window = (props: WindowProps) => {
     };
   };
 
+  const handleWindowClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    pushWindowHistory(props.name);
+  };
+
   const handleWindowClose = () => {
     props.onClose();
   };
@@ -96,7 +106,12 @@ export const Window = (props: WindowProps) => {
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
+        zIndex:
+          windowHistory.indexOf(props.name) !== -1
+            ? 100 - 10 * windowHistory.indexOf(props.name)
+            : 100,
       }}
+      onClick={handleWindowClick}
     >
       <section className="window__container">
         <section className="window__title-bar" onMouseDown={handleMouseDown}>
