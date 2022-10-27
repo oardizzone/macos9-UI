@@ -5,11 +5,10 @@ import "./styles/main.scss";
 function App() {
   const [openWindows, setOpenWindows] = useState<string[]>([]);
 
-  const openWindow = (windowHref: string | null) => {
-    if (windowHref == null || openWindows.includes(windowHref)) return;
+  const openWindow = (windowHref: string) => {
+    if (openWindows.includes(windowHref)) return;
     setOpenWindows((prev) => [...prev, windowHref]);
   };
-
   return (
     <section className="desktop">
       <MenuBar onSelect={openWindow} />

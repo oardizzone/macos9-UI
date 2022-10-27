@@ -2,7 +2,7 @@ import { DateTime } from "luxon";
 import React, { useEffect, useRef, useState } from "react";
 
 interface MenuBarProps {
-  onSelect: (itemName: string | null) => void;
+  onSelect: (itemName: string) => void;
 }
 
 export const MenuBar = (props: MenuBarProps) => {
@@ -26,7 +26,10 @@ export const MenuBar = (props: MenuBarProps) => {
 
   const handleNavItemClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    props.onSelect(e.currentTarget.getAttribute("href"));
+    const href = e.currentTarget.getAttribute("href");
+    if (!href) return;
+
+    props.onSelect(href.replace(/^\//g, ""));
   };
 
   return (
