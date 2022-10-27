@@ -30,7 +30,7 @@ export const Window = (props: WindowProps) => {
   const windowRef = useRef<HTMLElement>(null);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
+    // e.stopPropagation();
     mouseRef.current = {
       ...mouseRef.current,
       down: true,
@@ -40,7 +40,6 @@ export const Window = (props: WindowProps) => {
   };
 
   const handleMouseMove = (e: MouseEvent) => {
-    e.stopPropagation();
     const windowRect = windowRef.current?.getBoundingClientRect();
     const parentRect = desktopRef.current?.getBoundingClientRect();
 
@@ -70,8 +69,6 @@ export const Window = (props: WindowProps) => {
   };
 
   const handleMouseUp = (e: MouseEvent) => {
-    e.stopPropagation();
-
     mouseRef.current = {
       ...mouseRef.current,
       down: false,
@@ -80,13 +77,14 @@ export const Window = (props: WindowProps) => {
     };
   };
 
-  const handleWindowClick = () => {
+  const handleWindowClick = (e: React.MouseEvent<HTMLElement>) => {
+    // e.stopPropagation();
     setIsActive(true);
     pushWindowHistory(props.name);
   };
 
   const handleClickOutside = (e: MouseEvent) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (
       !(e.target instanceof Element) ||
       !desktopRef.current?.contains(e.target)
@@ -105,13 +103,13 @@ export const Window = (props: WindowProps) => {
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mousemove", handleMouseMove);
     if (desktopRef.current == null) return;
-    desktopRef.current.addEventListener("click", handleClickOutside);
+    desktopRef.current.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mousemove", handleMouseMove);
       if (desktopRef.current == null) return;
-      desktopRef.current.removeEventListener("click", handleClickOutside);
+      desktopRef.current.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -127,7 +125,7 @@ export const Window = (props: WindowProps) => {
             ? 100 - 10 * windowHistory.indexOf(props.name)
             : 100,
       }}
-      onClick={handleWindowClick}
+      onMouseDown={handleWindowClick}
     >
       <section className="window__container">
         <section className="window__title-bar" onMouseDown={handleMouseDown}>
