@@ -1,8 +1,9 @@
 import { DateTime } from "luxon";
 import React, { useEffect, useRef, useState } from "react";
+import { WindowName } from "../App";
 
 interface MenuBarProps {
-  onSelect: (itemName: string) => void;
+  onSelect: (name: WindowName) => void;
 }
 
 export const MenuBar = (props: MenuBarProps) => {
@@ -29,7 +30,7 @@ export const MenuBar = (props: MenuBarProps) => {
     const href = e.currentTarget.getAttribute("href");
     if (!href) return;
 
-    props.onSelect(href.replace(/^\//g, ""));
+    props.onSelect(href.replace(/^\//g, "") as WindowName);
   };
 
   return (
