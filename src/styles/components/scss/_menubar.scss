@@ -5,7 +5,7 @@
   padding-right: 1rem;
 
   background-color: $color-grey-300;
-  @include typo-bold-12($color-primary-black);
+  @include charcoal-small($color-primary-black);
 
   border-top: 0.1rem solid $color-grey-200;
   display: flex;
@@ -83,7 +83,7 @@
     gap: 0.6rem;
 
     &__spacer {
-      height: 1.5rem;
+      height: 2.2rem;
 
       box-sizing: border-box;
       width: 0.6rem;

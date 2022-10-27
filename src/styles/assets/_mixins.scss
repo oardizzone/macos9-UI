@@ -1,8 +1,22 @@
 @use "./typography";
 
-@mixin typo-bold-12($color, $text-align: left) {
+@mixin charcoal-large($color, $text-align: left) {
+  font-family: "Charcoal";
+  font-size: 2rem;
+  color: $color;
+  text-align: $text-align;
+}
+
+@mixin charcoal-small($color, $text-align: left) {
   font-family: "Charcoal";
   font-size: 1.6rem;
+  color: $color;
+  text-align: $text-align;
+}
+
+@mixin geneva-regular($color, $text-align: left) {
+  font-family: "geneva";
+  font-size: 2rem;
   color: $color;
   text-align: $text-align;
 }
