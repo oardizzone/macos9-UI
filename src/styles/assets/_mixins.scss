@@ -1,0 +1,8 @@
+@use "./typography";
+
+@mixin typo-bold-12($color, $text-align: left) {
+  font-family: "Charcoal";
+  font-size: 1rem;
+  color: $color;
+  text-align: $text-align;
+}

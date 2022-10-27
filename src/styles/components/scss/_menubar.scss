@@ -1,11 +1,11 @@
-@use "../../variables" as *;
+@use "../../assets" as *;
 
 .menu-bar {
   padding-left: 1rem;
   padding-right: 1rem;
 
-  font-family: "Charcoal";
   background-color: $color-grey-300;
+  @include typo-bold-12($color-primary-black);
 
   border-top: 0.1rem solid $color-grey-200;
   display: flex;

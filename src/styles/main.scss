@@ -1,14 +1,5 @@
 @use "./components";
-
-@font-face {
-  font-family: "Charcoal";
-  src: url("./fonts/Charcoal.ttf");
-}
-
-@font-face {
-  font-family: "Geneva";
-  src: url("./fonts/FindersKeepers.ttf");
-}
+@use "./assets";
 
 body {
   margin: 0 0 !important;
