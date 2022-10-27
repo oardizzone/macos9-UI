@@ -3,6 +3,7 @@ import { CloseButton } from "./buttons";
 
 interface WindowProps {
   name: string;
+  parentRef: React.RefObject<HTMLElement>;
 }
 
 export const Window = (props: WindowProps) => {
@@ -20,8 +21,12 @@ export const Window = (props: WindowProps) => {
     e.stopPropagation();
   };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!mouseRef.current.down) return;
+    const windowRect = windowRef.current?.getBoundingClientRect();
+    const parentRect = props.parentRef.current?.getBoundingClientRect();
+
+    if (!windowRect || !parentRect) return;
 
     const distX = e.screenX - mouseRef.current.x;
     const distY = e.screenY - mouseRef.current.y;
@@ -29,16 +34,22 @@ export const Window = (props: WindowProps) => {
     const diffX = distX - mouseRef.current.dragX;
     const diffY = distY - mouseRef.current.dragY;
     mouseRef.current = { ...mouseRef.current, dragX: distX, dragY: distY };
-
-    // console.log(windowPosition.current);
+    console.log(windowRect, parentRect);
 
     setPosition((prev) => {
+      if (
+        windowRect.right + diffX >= parentRect.right ||
+        windowRect.left + diffX < parentRect.left ||
+        windowRect.bottom + diffY >= parentRect.bottom ||
+        windowRect.top + diffY < parentRect.top
+      )
+        return prev;
       return {
         x: prev.x + diffX,
         y: prev.y + diffY,
       };
     });
-  }, []);
+  };
 
   const handleMouseUp = (e: MouseEvent) => {
     mouseRef.current = {

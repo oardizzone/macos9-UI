@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MenuBar, Window } from "./components";
 import "./styles/main.scss";
 
 function App() {
+  const desktopRef = useRef<HTMLElement>(null);
   const [openWindows, setOpenWindows] = useState<string[]>([]);
 
   const openWindow = (windowHref: string) => {
@@ -12,8 +13,8 @@ function App() {
   return (
     <>
       <MenuBar onSelect={openWindow} />
-      <section className="desktop">
-        <Window />
+      <section className="desktop" ref={desktopRef}>
+        <Window parentRef={desktopRef} />
       </section>
     </>
   );
