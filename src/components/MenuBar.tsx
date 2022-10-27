@@ -59,6 +59,7 @@ export const MenuBar = (props: MenuBarProps) => {
             <div className="menu-bar__widgets__spacer__dot"></div>
             <div className="menu-bar__widgets__spacer__dot"></div>
           </div>
+          <p className="menu-bar__active-window">🖥 Active window</p>
         </section>
       </section>
       <div className="menu-bar__corner--right">
