@@ -10,16 +10,16 @@ function App() {
         <section className="menu-bar">
           <nav className="menu-bar__nav">
             <p className="menu-bar__nav__item">😁</p>
-            <a href="#" className="menu-bar__nav__item">
+            <a href="/about" className="menu-bar__nav__item">
               About
             </a>
-            <a href="#" className="menu-bar__nav__item">
+            <a href="/game" className="menu-bar__nav__item">
               Game
             </a>
-            <a href="#" className="menu-bar__nav__item">
+            <a href="/works" className="menu-bar__nav__item">
               Works
             </a>
-            <a href="#" className="menu-bar__nav__item">
+            <a href="/contact" className="menu-bar__nav__item">
               Contact
             </a>
           </nav>
