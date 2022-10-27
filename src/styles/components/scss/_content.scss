@@ -1,0 +1,15 @@
+@use "../../assets/" as *;
+
+.content {
+  width: fit-content;
+  &__header {
+    @include charcoal-large($color-primary-black);
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    @include geneva-regular($color-primary-black);
+    max-width: 50rem;
+    margin-bottom: 1rem;
+  }
+}
