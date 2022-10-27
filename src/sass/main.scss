@@ -49,6 +49,16 @@ body {
 
   border-top: 0.1rem solid $color-grey-200;
 
+  &__nav {
+    display: flex;
+    gap: 1rem;
+    &__item {
+      margin: 0;
+      color: $color-primary-black;
+      text-decoration: none;
+    }
+  }
+
   &__corner {
     position: absolute;
     width: 0.5rem;
@@ -83,9 +93,5 @@ body {
       height: 100%;
       border-top: 0.1rem solid $color-grey-200;
     }
-  }
-
-  &__item {
-    margin: 0;
   }
 }
