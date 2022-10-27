@@ -7,12 +7,16 @@ interface WindowProps {
 
 export const Window = (props: WindowProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const mouseRef = useRef({ down: false, x: 0, y: 0 });
-  const dragDistance = useRef({ distX: 0, distY: 0 });
+  const mouseRef = useRef({ down: false, x: 0, y: 0, dragX: 0, dragY: 0 });
   const windowRef = useRef<HTMLElement>(null);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-    mouseRef.current = { down: true, x: e.screenX, y: e.screenY };
+    mouseRef.current = {
+      ...mouseRef.current,
+      down: true,
+      x: e.screenX,
+      y: e.screenY,
+    };
     e.stopPropagation();
   };
 
@@ -22,9 +26,9 @@ export const Window = (props: WindowProps) => {
     const distX = e.screenX - mouseRef.current.x;
     const distY = e.screenY - mouseRef.current.y;
 
-    const diffX = distX - dragDistance.current.distX;
-    const diffY = distY - dragDistance.current.distY;
-    dragDistance.current = { distX, distY };
+    const diffX = distX - mouseRef.current.dragX;
+    const diffY = distY - mouseRef.current.dragY;
+    mouseRef.current = { ...mouseRef.current, dragX: distX, dragY: distY };
 
     // console.log(windowPosition.current);
 
@@ -37,8 +41,12 @@ export const Window = (props: WindowProps) => {
   }, []);
 
   const handleMouseUp = (e: MouseEvent) => {
-    mouseRef.current = { down: false, x: e.screenX, y: e.screenY };
-    dragDistance.current = { distX: 0, distY: 0 };
+    mouseRef.current = {
+      ...mouseRef.current,
+      down: false,
+      dragX: 0,
+      dragY: 0,
+    };
   };
 
   useEffect(() => {
