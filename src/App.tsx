@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MenuBar } from "./components";
+import { MenuBar, Window } from "./components";
 import "./styles/main.scss";
 
 function App() {
@@ -10,9 +10,12 @@ function App() {
     setOpenWindows((prev) => [...prev, windowHref]);
   };
   return (
-    <section className="desktop">
+    <>
       <MenuBar onSelect={openWindow} />
-    </section>
+      <section className="desktop">
+        <Window />
+      </section>
+    </>
   );
 }
 
