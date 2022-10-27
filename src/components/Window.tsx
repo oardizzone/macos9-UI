@@ -13,10 +13,13 @@ interface WindowProps {
   parentRef: React.RefObject<HTMLElement>;
   children: ReactNode;
   onClose: () => void;
+  defaultPos?: { x: number; y: number };
 }
 
 export const Window = (props: WindowProps) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState(
+    props.defaultPos ?? { x: 25, y: 25 }
+  );
   const mouseRef = useRef({ down: false, x: 0, y: 0, dragX: 0, dragY: 0 });
   const windowRef = useRef<HTMLElement>(null);
 
