@@ -27,21 +27,62 @@ body {
 }
 
 .menu-bar {
-  font-family: "Charcoal";
+  &__container {
+    max-height: max-content;
+    width: 100%;
+    position: absolute;
+    border-bottom: 0.1rem solid $color-primary-black;
 
-  position: absolute;
-  width: 100%;
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 0.1rem;
+      background-color: $color-grey-400;
+    }
+  }
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  font-family: "Charcoal";
   background-color: $color-grey-300;
 
   border-top: 0.1rem solid $color-grey-200;
-  border-bottom: 0.1rem solid $color-primary-black;
 
-  &::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 0.1rem;
-    background-color: $color-grey-400;
+  &__corner {
+    position: absolute;
+    width: 0.5rem;
+    height: calc(100% - 0.2rem);
+    background-color: #000000;
+    top: 0;
+
+    &--left {
+      @extend .menu-bar__corner;
+      left: 0;
+    }
+
+    &--left & {
+      &__spacer {
+        border-top-left-radius: 1rem;
+      }
+    }
+
+    &--right {
+      @extend .menu-bar__corner;
+      right: 0;
+    }
+
+    &--right & {
+      &__spacer {
+        border-top-right-radius: 1rem;
+      }
+    }
+
+    &__spacer {
+      background-color: $color-grey-300;
+      height: 100%;
+      border-top: 0.1rem solid $color-grey-200;
+    }
   }
 
   &__item {
