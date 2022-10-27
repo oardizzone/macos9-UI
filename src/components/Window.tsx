@@ -40,6 +40,8 @@ export const Window = (props: WindowProps) => {
   };
 
   const handleMouseMove = (e: MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     const windowRect = windowRef.current?.getBoundingClientRect();
     const parentRect = desktopRef.current?.getBoundingClientRect();
 
