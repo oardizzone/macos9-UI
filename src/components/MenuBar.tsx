@@ -1,7 +1,9 @@
 import { DateTime } from "luxon";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-interface MenuBarProps {}
+interface MenuBarProps {
+  onSelect: (itemName: string | null) => void;
+}
 
 export const MenuBar = (props: MenuBarProps) => {
   const [time, setTime] = useState(DateTime.now());
@@ -22,6 +24,11 @@ export const MenuBar = (props: MenuBarProps) => {
     };
   }, []);
 
+  const handleNavItemClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    props.onSelect(e.currentTarget.getAttribute("href"));
+  };
+
   return (
     <section className="menu-bar__container">
       <div className="menu-bar__corner--left">
@@ -29,19 +36,45 @@ export const MenuBar = (props: MenuBarProps) => {
       </div>
       <section className="menu-bar">
         <nav className="menu-bar__nav">
-          <p className="menu-bar__nav__item">😁</p>
-          <a href="/about" className="menu-bar__nav__item">
-            About
-          </a>
-          <a href="/game" className="menu-bar__nav__item">
-            Game
-          </a>
-          <a href="/works" className="menu-bar__nav__item">
-            Works
-          </a>
-          <a href="/contact" className="menu-bar__nav__item">
-            Contact
-          </a>
+          <section className="menu-bar__nav__item-container">
+            <p className="menu-bar__nav__item">😁</p>
+          </section>
+          <section className="menu-bar__nav__item-container">
+            <a
+              href="/about"
+              className="menu-bar__nav__item"
+              onClick={handleNavItemClick}
+            >
+              About
+            </a>
+          </section>
+          <section className="menu-bar__nav__item-container">
+            <a
+              href="/game"
+              className="menu-bar__nav__item"
+              onClick={handleNavItemClick}
+            >
+              Game
+            </a>
+          </section>
+          <section className="menu-bar__nav__item-container">
+            <a
+              href="/works"
+              className="menu-bar__nav__item"
+              onClick={handleNavItemClick}
+            >
+              Works
+            </a>
+          </section>
+          <section className="menu-bar__nav__item-container">
+            <a
+              href="/contact"
+              className="menu-bar__nav__item"
+              onClick={handleNavItemClick}
+            >
+              Contact
+            </a>
+          </section>
         </nav>
         <section className="menu-bar__widgets">
           <section className="menu-bar__time">
