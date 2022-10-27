@@ -25,7 +25,7 @@ export const Window = (props: WindowProps) => {
     x: 10,
     y: 10,
   });
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(windowHistory[0] === props.name);
   const mouseRef = useRef({ down: false, x: 0, y: 0, dragX: 0, dragY: 0 });
   const windowRef = useRef<HTMLElement>(null);
 
@@ -79,24 +79,18 @@ export const Window = (props: WindowProps) => {
 
   const handleWindowClick = (e: React.MouseEvent<HTMLElement>) => {
     // e.stopPropagation();
-    setIsActive(true);
     pushWindowHistory(props.name);
   };
 
   const handleClickOutside = (e: MouseEvent) => {
     // e.preventDefault();
-    if (
-      !(e.target instanceof Element) ||
-      !desktopRef.current?.contains(e.target)
-    )
-      return;
+    if (!(e.target instanceof Element)) return;
 
     if (!windowRef.current?.contains(e.target)) setIsActive(false);
   };
 
   const handleWindowClose = () => {
     props.onClose();
-    if (windowHistory.length === 1) setIsActive(true);
   };
 
   useEffect(() => {
@@ -112,6 +106,10 @@ export const Window = (props: WindowProps) => {
       desktopRef.current.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setIsActive(windowHistory[0] === props.name);
+  }, [windowHistory, props.name]);
 
   return (
     <section
