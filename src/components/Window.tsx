@@ -45,12 +45,11 @@ export const Window = (props: WindowProps) => {
 
   const handleMouseMove = (e: MouseEvent) => {
     e.stopPropagation();
-    e.preventDefault();
     const windowRect = windowRef.current?.getBoundingClientRect();
     const parentRect = desktopRef.current?.getBoundingClientRect();
 
     if (!mouseRef.current.down || !windowRect || !parentRect) return;
-    props.onMove();
+    // e.preventDefault();
 
     const distX = e.screenX - mouseRef.current.x;
     const distY = e.screenY - mouseRef.current.y;
