@@ -18,7 +18,6 @@ interface WindowProps {
   name: WindowName;
   children: ReactNode;
   onClose: () => void;
-  onMove: () => void;
 }
 
 export const Window = (props: WindowProps) => {

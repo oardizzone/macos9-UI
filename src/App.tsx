@@ -88,9 +88,6 @@ function App() {
               onClose={() => {
                 handleWindowClose("about");
               }}
-              onMove={() => {
-                //   handleWindowMove("about");
-              }}
             >
               <article className="content">
                 <h2 className="content__header">About this site</h2>
@@ -122,7 +119,6 @@ function App() {
               onClose={() => {
                 handleWindowClose("game");
               }}
-              onMove={() => {}}
             >
               <article className="content">
                 <h2 className="content__header">About the game</h2>
@@ -143,7 +139,6 @@ function App() {
               onClose={() => {
                 handleWindowClose("works");
               }}
-              onMove={() => {}}
             >
               {" "}
               <article className="content">
@@ -163,7 +158,6 @@ function App() {
               onClose={() => {
                 handleWindowClose("contact");
               }}
-              onMove={() => {}}
             >
               <article className="content">
                 <h2 className="content__header">Contact info</h2>
