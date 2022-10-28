@@ -1,6 +1,8 @@
 import { DateTime } from "luxon";
 import React, { useEffect, useRef, useState } from "react";
 import { WindowName } from "../App";
+import finderLogo from "../assets/finder.png";
+import appleLogo from "../assets/apple-logo.png";
 
 interface MenuBarProps {
   onSelect: (name: WindowName) => void;
@@ -41,7 +43,13 @@ export const MenuBar = (props: MenuBarProps) => {
       <section className="menu-bar">
         <nav className="menu-bar__nav">
           <section className="menu-bar__nav__item-container">
-            <p className="menu-bar__nav__item">😁</p>
+            <p className="menu-bar__nav__item">
+              <img
+                src={appleLogo}
+                alt="macOS 9 Apple Logo"
+                className="menu-bar__logo"
+              />
+            </p>
           </section>
           <section className="menu-bar__nav__item-container">
             <a
@@ -98,7 +106,14 @@ export const MenuBar = (props: MenuBarProps) => {
             <div className="menu-bar__widgets__spacer__dot"></div>
             <div className="menu-bar__widgets__spacer__dot"></div>
           </div>
-          <p className="menu-bar__active-window">Hello World!</p>
+          <p className="menu-bar__active-window">
+            <img
+              src={finderLogo}
+              alt="Finder logo"
+              className="menu-bar__active-window__icon"
+            />{" "}
+            Hello World!
+          </p>
         </section>
       </section>
       <div className="menu-bar__corner--right">

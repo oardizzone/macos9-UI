@@ -13,6 +13,10 @@
   align-items: center;
   min-height: 1.5rem;
 
+  &__logo {
+    max-width: 1.8rem;
+  }
+
   &__container {
     max-height: max-content;
     width: 100%;
@@ -66,7 +70,11 @@
 
   &__active-window {
     margin: 0;
-    padding-top: 0.2rem;
+    &__icon {
+      max-width: 2rem;
+      position: relative;
+      bottom: -0.3rem;
+    }
   }
 
   &__widgets {

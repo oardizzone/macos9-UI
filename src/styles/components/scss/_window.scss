@@ -91,6 +91,13 @@
       padding-right: 0.5rem;
       user-select: none;
     }
+
+    &__icon {
+      position: relative;
+      bottom: -0.2rem;
+      margin-right: 0.4rem;
+      max-width: 1.6rem;
+    }
   }
 
   &__content {
@@ -125,6 +132,10 @@
 
       &__name {
         color: $color-grey-700;
+      }
+
+      &__icon {
+        opacity: 50%;
       }
     }
 

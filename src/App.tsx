@@ -1,5 +1,6 @@
 import React, { createContext, useRef, useState } from "react";
 import { MenuBar, Window } from "./components";
+
 import "./styles/main.scss";
 
 export type WindowName = "about" | "game" | "works" | "contact";

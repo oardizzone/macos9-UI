@@ -9,6 +9,10 @@ import React, {
 import { DesktopContext, DesktopContextValue, WindowName } from "../App";
 import { capitalizeFirstChar } from "../utils";
 import { CloseButton } from "./buttons";
+import aboutIcon from "../assets/about.png";
+import gameIcon from "../assets/game.png";
+import worksIcon from "../assets/works.png";
+import contactIcon from "../assets/contact.png";
 
 interface WindowProps {
   name: WindowName;
@@ -109,6 +113,21 @@ export const Window = (props: WindowProps) => {
     };
   }, []);
 
+  const getIcon = (name: WindowName): string => {
+    switch (name) {
+      case "about":
+        return aboutIcon;
+      case "game":
+        return gameIcon;
+      case "works":
+        return worksIcon;
+      case "contact":
+        return contactIcon;
+      default:
+        return "";
+    }
+  };
+
   useEffect(() => {
     setIsActive(windowHistory[0] === props.name);
   }, [windowHistory, props.name]);
@@ -139,6 +158,11 @@ export const Window = (props: WindowProps) => {
             <div className="window__title-bar__picker__line"></div>
           </div>
           <span className="window__title-bar__name">
+            <img
+              src={getIcon(props.name)}
+              alt="window icon"
+              className="window__title-bar__icon"
+            />
             {capitalizeFirstChar(props.name)}
           </span>
           <div className="window__title-bar__picker">
