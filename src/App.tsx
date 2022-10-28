@@ -1,5 +1,6 @@
 import React, { createContext, useRef, useState } from "react";
 import { MenuBar, Window } from "./components";
+import noiseSvg from "./assets/noise.svg";
 
 import "./styles/main.scss";
 
