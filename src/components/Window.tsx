@@ -34,6 +34,7 @@ export const Window = (props: WindowProps) => {
 
   const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     // e.stopPropagation();
+    e.preventDefault();
     mouseRef.current = {
       ...mouseRef.current,
       down: true,
